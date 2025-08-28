@@ -126,6 +126,7 @@ const exercises = [
     duration: '30-60 seconds per foot',
     description: 'Stand on ball of foot with towel under toes. Curl toes to grip towel without letting heel drop.',
     animation: 'towel-curls',
+    videoPath: '/fascia-clips/01-towel-curls.mp4',
     focus: 'Foot to glute connection',
     technique: [
       'Stand on ball of foot',
@@ -140,6 +141,7 @@ const exercises = [
     duration: '30 seconds per side',
     description: 'Grip ground with one foot while swinging the other leg. Test foot-to-glute connection.',
     animation: 'single-leg-swing',
+    videoPath: '/fascia-clips/02-single-leg-swing.mp4',
     focus: 'Balance and glute activation',
     technique: [
       'Grip ground with standing foot',
@@ -153,6 +155,7 @@ const exercises = [
     duration: '20-30 reps',
     description: 'Small jumps on balls of feet with toes curled. Similar to skipping for fascial elasticity.',
     animation: 'pogos',
+    videoPath: '/fascia-clips/03-pogos.mp4',
     focus: 'Fascial elasticity',
     technique: [
       'Stay on balls of feet',
@@ -167,6 +170,7 @@ const exercises = [
     duration: '15-20 reps per leg',
     description: 'Single leg jumps on ball of foot. Transfers between legs like skipping.',
     animation: 'single-leg-pogos',
+    videoPath: '/fascia-clips/04-single-leg-pogos.mp4',
     focus: 'Unilateral power',
     technique: [
       'Ball of foot position',
@@ -205,7 +209,8 @@ export default function FasciaPage() {
     name: ex.name,
     duration: ex.duration,
     description: ex.description,
-    technique: ex.technique
+    technique: ex.technique,
+    videoPath: ex.videoPath
   }));
 
   return (
@@ -311,8 +316,19 @@ export default function FasciaPage() {
               className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
               onClick={() => setSelectedExercise(exercise.name)}
             >
-              <div className="h-48 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg mb-4 flex items-center justify-center">
-                {animations[exercise.animation]}
+              <div className="h-48 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                {exercise.videoPath ? (
+                  <video 
+                    src={exercise.videoPath} 
+                    className="w-full h-full object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  animations[exercise.animation]
+                )}
               </div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">{exercise.name}</h2>
               <p className="text-purple-600 font-medium mb-2">{exercise.duration}</p>
@@ -341,8 +357,19 @@ export default function FasciaPage() {
                 </button>
               </div>
               
-              <div className="h-64 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg mb-6 flex items-center justify-center">
-                {animations[exercises.find(ex => ex.name === selectedExercise)?.animation || '']}
+              <div className="h-64 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+                {exercises.find(ex => ex.name === selectedExercise)?.videoPath ? (
+                  <video 
+                    src={exercises.find(ex => ex.name === selectedExercise)?.videoPath}
+                    className="w-full h-full object-cover"
+                    controls
+                    autoPlay
+                    loop
+                    muted
+                  />
+                ) : (
+                  animations[exercises.find(ex => ex.name === selectedExercise)?.animation || '']
+                )}
               </div>
               
               <div className="space-y-4">
