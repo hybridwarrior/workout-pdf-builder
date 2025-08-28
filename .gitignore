@@ -56,6 +56,7 @@ next-env.d.ts
 
 # Keep workout clips
 !public/workout-clips/*.mp4
+!public/fascia-clips/*.mp4
 
 # Temporary transcripts
 *_transcript.json
